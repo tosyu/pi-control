@@ -10,8 +10,8 @@ class TaskFan:
         self.status = 0
         self.cooldownstarttime = time.time()
         self.lasttime = time.time()
-        self.cooldownduration = 10
-        self.pollinterval = 2
+        self.cooldownduration = 60 * 3
+        self.pollinterval = 10
         self.fanGPIO = gpio_id
         self.tempcmd = os.path.dirname(os.path.abspath(__file__)) + os.sep + ".." + os.sep + "bin" + os.sep + "temperature"
         GPIO.setup(gpio_id, GPIO.OUT);
