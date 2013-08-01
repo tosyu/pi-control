@@ -8,6 +8,5 @@ gpuTemp0=$(/opt/vc/bin/vcgencmd measure_temp)
 gpuTemp0=${gpuTemp0//\'C/}
 gpuTemp0=${gpuTemp0//temp=/}
 
-# echo $cpuTemp1"."$cpuTempM"/"$gpuTemp0
-echo 50.0/50.0
+echo $cpuTemp1"."$cpuTempM"/"$gpuTemp0
 
