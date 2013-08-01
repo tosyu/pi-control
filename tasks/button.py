@@ -1,4 +1,5 @@
-#import RPi.GPIO as GPIO
+import RPi.GPIO as GPIO
+from subprocess import Popen
 
 class TaskButton:
 
@@ -7,14 +8,18 @@ class TaskButton:
         self.pressed = False
         self.controller = controller
         self.buttonGPIO = gpio_id
+        GPIO.setup(self.buttonGPIO, GPIO.IN)
 
     def run(self, time):
-        #if self.pressed == False and GPIO.event_detected(self.buttonGPIO):
-        if self.pressed == False:
+        if self.pressed == False and GPIO.input(self.buttonGPIO) == False:
             self.pressed = True
+            print "TaskButton: button pressed!"
             led = self.controller.getTask('led')
-            # led.setStatus(3)
+            led.setStatus(3)
+            self.closeSystem()
 
+    def closeSystem(self):
+        p = Popen(['/sbin/shutdown', '-h', 'now'])
 
     def cleanup(self):
         print "TaskButton: cleanup"

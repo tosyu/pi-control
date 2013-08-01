@@ -1,0 +1,38 @@
+#!/bin/bash
+# picontrol daemon
+# chkconfig: 345 20 80
+# description: picontrol daemon
+# processname: picontrol
+
+DAEMON_PATH="/home/pi/pi-control"
+
+DAEMON=./picontrol
+DAEMONOPTS=""
+
+NAME=picontrol
+DESC="Pi control"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+case "$1" in
+start)
+    printf "%-50s" "Starting $NAME..."
+    cd $DAEMON_PATH
+    $DAEMON & >> /dev/null
+;;
+status)
+    printf "%-50s" "Checking $NAME..."
+;;
+stop)
+    printf "%-50s" "Stopping $NAME"
+;;
+
+restart)
+    $0 stop
+    $0 start
+;;
+
+*)
+        echo "Usage: $0 {status|start|stop|restart}"
+        exit 1
+esac

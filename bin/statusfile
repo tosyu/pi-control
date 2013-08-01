@@ -1,0 +1,36 @@
+#!/bin/bash
+# myapp daemon
+# chkconfig: 345 20 80
+# description: myapp daemon
+# processname: myapp
+
+DAEMON_PATH="/home/wes/Development/projects/myapp"
+
+DAEMON=myapp
+DAEMONOPTS="-my opts"
+
+NAME=myapp
+DESC="My daemon description"
+PIDFILE=/var/run/$NAME.pid
+SCRIPTNAME=/etc/init.d/$NAME
+
+case "$1" in
+start)
+    touch /tmp/pi-system-loaded.tmp
+;;
+status)
+    printf "%-50s" "Checking $NAME..."
+;;
+stop)
+    printf "%-50s" "Stopping $NAME"
+;;
+
+restart)
+    $0 stop
+    $0 start
+;;
+
+*)
+        echo "Usage: $0 {status|start|stop|restart}"
+        exit 1
+esac
