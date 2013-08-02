@@ -11,6 +11,7 @@ class TaskFan:
         self.cooldownstarttime = time.time()
         self.lasttime = time.time()
         self.cooldownduration = 60 * 3
+        self.cooldowntemp = 67
         self.pollinterval = 10
         self.fanGPIO = gpio_id
         self.tempcmd = os.path.dirname(os.path.abspath(__file__)) + os.sep + ".." + os.sep + "bin" + os.sep + "temperature"
@@ -23,7 +24,7 @@ class TaskFan:
            if diff >= self.pollinterval:
                self.lasttime = time
                temps = self.getTemps()
-               if temps[0] >= 75 or temps[1] >= 75:
+               if temps[0] >= self.cooldowntemp or temps[1] >= self.cooldowntemp:
                    self.status = 1
                    self.cooldownstarttime = time
                    self.updateFan()
